@@ -1,11 +1,18 @@
 from bantam import *
 
-posx = 400
-posy = 300
+open_game_window()
 
-ship2 = image_from_file('./ship2.gif')
+# the stuff which happens once to set up the game
+world = bantam_create_world()
 
-while True:
-	dt = bantam_update()
-	posx = posx + dt*100
-	draw_image(ship2, posx, posy)
+world.pos_x = 400
+world.pos_y = 300
+world.ship2 = image_from_file('./ship2.gif')
+
+# the stuff which is done each frame
+def update(world, dt):
+  world.pos_x = world.pos_x + dt / 10
+  world.pos_y = world.pos_y + dt / 10
+  draw_image(world.ship2, world.pos_x, world.pos_y)
+
+bantam_run(world, update)
